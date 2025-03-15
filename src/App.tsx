@@ -55,10 +55,33 @@ function App() {
     }
   }, [])
 
-  // Fetch messages when user is authenticated
+  // Fetch messages and set up real-time subscription when user is authenticated
   useEffect(() => {
     if (user) {
+      // Initial fetch of messages
       fetchMessages()
+
+      // Set up real-time subscription
+      const channel = supabase
+        .channel('messages')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'message',
+          },
+          async () => {
+            // Fetch the latest messages when any change occurs
+            await fetchMessages()
+          }
+        )
+        .subscribe()
+
+      // Cleanup subscription on unmount
+      return () => {
+        channel.unsubscribe()
+      }
     }
   }, [user])
 
@@ -117,7 +140,7 @@ function App() {
     if (error) console.error('Error sending message:', error)
     else {
       setNewMessage('')
-      fetchMessages()
+      // Removed fetchMessages() call since the subscription will handle it
     }
   }
 
