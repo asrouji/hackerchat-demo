@@ -1,6 +1,6 @@
 # HackerChat Demo
 
-A Vite + Supabase demo for LMUHacks 2025!
+A real-time chat application demo built with Supabase + Vite + TypeScript for LMUHacks 2025! 🎉 This demo shows how to create a collaborative chat platform where users can authenticate with GitHub and participate in a group discussion.
 
 ## Supabase Project Setup
 
@@ -21,7 +21,7 @@ Follow these steps to set up your GitHub OAuth app. Skip this if using a differe
 
 1. Go to your [GitHub Developer Settings](https://github.com/settings/developers)
 2. Click "New OAuth App" and fill in the details:
-   - For the homepage URL, you can use `http://localhost:3000` for local development.
+   - For the homepage URL, you can use `http://localhost:5173` for local development.
    - For the authorization callback URL, go to your [Supabase Auth Settings](https://supabase.com/dashboard/project/_/auth/providers), click on "GitHub", enable it, and copy in the "Callback URL" value.
 3. After creating the app on Github, go back to Supabase and copy in the `Client ID` and `Client Secret` from the GitHub app.
 4. Copy the client ID to your `.env.local` file:
@@ -36,6 +36,8 @@ To quickly set up the tables for this project, you can use the following SQL in 
 
 ### Hacker Table
 
+Stores user profile information synchronized with GitHub authentication.
+
 ```sql
 create table public.hacker (
   id uuid not null,
@@ -48,6 +50,8 @@ create table public.hacker (
 ```
 
 ### Message Table
+
+Stores chat messages with references to the hacker who sent them.
 
 ```sql
 create table public.message (
@@ -73,7 +77,7 @@ npm install # install dependencies
 npm run dev # start the development server
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the site! Changes you make will be reflected in real-time.
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the site! Changes you make will be reflected in real-time.
 
 ## Creating your own Vite Project
 
