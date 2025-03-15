@@ -16,9 +16,10 @@
 /* Chat messages container with scrolling */
 .messages-container {
   height: 300px;
+  width: 600px; 
   overflow-y: auto;
   border: 1px solid #ccc;
-  margin: 10px 0;
+  margin: 10px auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
