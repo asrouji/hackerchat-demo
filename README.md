@@ -80,7 +80,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 To start your own Vite project similar to this one, you can use the following command:
 
 ```bash
-npm create vite@latest
+npm create vite@latest --template react-ts
 ```
 
 ## Learn More
