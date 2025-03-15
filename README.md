@@ -24,11 +24,6 @@ Follow these steps to set up your GitHub OAuth app. Skip this if using a differe
    - For the homepage URL, you can use `http://localhost:5173` for local development.
    - For the authorization callback URL, go to your [Supabase Auth Settings](https://supabase.com/dashboard/project/_/auth/providers), click on "GitHub", enable it, and copy in the "Callback URL" value.
 3. After creating the app on Github, go back to Supabase and copy in the `Client ID` and `Client Secret` from the GitHub app.
-4. Copy the client ID to your `.env.local` file:
-
-```bash
-VITE_GITHUB_CLIENT_ID=YOUR_GITHUB_CLIENT_ID
-```
 
 ## Supabase Table Schema
 
