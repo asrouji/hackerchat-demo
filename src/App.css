@@ -6,12 +6,6 @@
   text-align: center;
 }
 
-/* Main app container */
-.app-container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
 /* Utility class for flex layouts */
 .flex {
   display: flex;

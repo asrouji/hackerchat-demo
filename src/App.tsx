@@ -123,7 +123,7 @@ function App() {
 
   // ============= Render UI =============
   return (
-    <div className="app-container">
+    <div>
       <h1>HackerChat</h1>
 
       {!user ? (
