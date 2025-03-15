@@ -10,9 +10,7 @@
   margin: 0 auto;
 }
 
-.user-info,
-.message,
-form {
+.flex {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -35,4 +33,8 @@ img {
 
 input {
   flex: 1;
+}
+
+button:last-child {
+  margin-left: auto;
 }

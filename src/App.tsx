@@ -108,7 +108,7 @@ function App() {
         <button onClick={signInWithGithub}>Sign in with GitHub</button>
       ) : (
         <div>
-          <div className="user-info">
+          <div className="user-info flex">
             <img src={user.user_metadata.avatar_url} alt="Avatar" className="avatar" />
             <span className="username">{user.user_metadata.preferred_username}</span>
             <button onClick={signOut} className="sign-out-btn">
@@ -118,7 +118,7 @@ function App() {
 
           <div className="messages-container">
             {messages.map(msg => (
-              <div key={msg.id} className="message">
+              <div key={msg.id} className="message flex">
                 <img src={msg.hacker.github_avatar_url} alt="Avatar" className="avatar" />
                 <strong className="message-username">{msg.hacker.github_login}:</strong>
                 <span>{msg.content}</span>
@@ -126,7 +126,7 @@ function App() {
             ))}
           </div>
 
-          <form onSubmit={sendMessage} className="message-form">
+          <form onSubmit={sendMessage} className="message-form flex">
             <input
               type="text"
               value={newMessage}
