@@ -11,8 +11,8 @@ Follow these steps to set up your Supabase project:
 3. Add the following to your `.env.local` file (you can rename `.env.example` if you haven't already):
 
 ```bash
-SUPABASE_URL=YOUR_SUPABASE_URL
-SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+VITE_SUPABASE_URL=YOUR_SUPABASE_URL
+VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 ```
 
 ## GitHub App Setup
@@ -27,7 +27,7 @@ Follow these steps to set up your GitHub OAuth app. Skip this if using a differe
 4. Copy the client ID to your `.env.local` file:
 
 ```bash
-GITHUB_CLIENT_ID=YOUR_GITHUB_CLIENT_ID
+VITE_GITHUB_CLIENT_ID=YOUR_GITHUB_CLIENT_ID
 ```
 
 ## Running the Project
