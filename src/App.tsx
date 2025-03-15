@@ -1,22 +1,22 @@
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from './supabase'
 import { User } from '@supabase/supabase-js'
+import { Tables } from './supabase.types'
 import './App.css'
 
-type Message = {
-  content: string
-  created_at: string
-  hacker_id: string
-  id: number
-  hacker: { github_login: string; github_avatar_url: string }
+// Define our Message type that matches our Supabase database schema
+type Message = Tables<'message'> & {
+  hacker: Tables<'hacker'>
 }
 
 function App() {
+  // ============= State Management =============
   const [user, setUser] = useState<User | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
   const [newMessage, setNewMessage] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
+  // Auto-scroll to bottom when new messages arrive
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -25,7 +25,9 @@ function App() {
     scrollToBottom()
   }, [messages])
 
+  // ============= Authentication Setup =============
   useEffect(() => {
+    // Check for existing session on component mount
     const getSession = async () => {
       const {
         data: { session },
@@ -37,6 +39,7 @@ function App() {
     }
     getSession()
 
+    // Set up real-time auth state listener
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
         setUser(session.user)
@@ -46,17 +49,21 @@ function App() {
       }
     })
 
+    // Cleanup subscription on unmount
     return () => {
       authListener.subscription.unsubscribe()
     }
   }, [])
 
+  // Fetch messages when user is authenticated
   useEffect(() => {
     if (user) {
       fetchMessages()
     }
   }, [user])
 
+  // ============= Database Operations =============
+  // Create a new hacker profile if it doesn't exist
   async function createHackerIfNotExists(user: User) {
     const { data: existingHacker } = await supabase.from('hacker').select('*').eq('id', user.id).single()
 
@@ -70,6 +77,19 @@ function App() {
     }
   }
 
+  // Fetch all messages with hacker information
+  async function fetchMessages() {
+    const { data, error } = await supabase
+      .from('message')
+      .select('*, hacker(*)')
+      .order('created_at', { ascending: true })
+
+    if (error) console.error('Error fetching messages:', error)
+    else setMessages(data)
+  }
+
+  // ============= User Actions =============
+  // Handle GitHub OAuth sign in
   async function signInWithGithub() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'github',
@@ -77,21 +97,13 @@ function App() {
     if (error) console.error('Error signing in:', error)
   }
 
+  // Handle user sign out
   async function signOut() {
     const { error } = await supabase.auth.signOut()
     if (error) console.error('Error signing out:', error)
   }
 
-  async function fetchMessages() {
-    const { data, error } = await supabase
-      .from('message')
-      .select('*, hacker(github_login, github_avatar_url)')
-      .order('created_at', { ascending: true })
-
-    if (error) console.error('Error fetching messages:', error)
-    else setMessages(data)
-  }
-
+  // Handle new message submission
   async function sendMessage(e: React.FormEvent) {
     e.preventDefault()
     if (!newMessage.trim() || !user) return
@@ -109,14 +121,18 @@ function App() {
     }
   }
 
+  // ============= Render UI =============
   return (
     <div className="app-container">
       <h1>HackerChat</h1>
 
       {!user ? (
+        // Show sign in button if user is not authenticated
         <button onClick={signInWithGithub}>Sign in with GitHub</button>
       ) : (
+        // Show chat interface if user is authenticated
         <div>
+          {/* User profile section */}
           <div className="user-info flex">
             <img src={user.user_metadata.avatar_url} alt="Avatar" className="avatar" />
             <span className="username">{user.user_metadata.preferred_username}</span>
@@ -125,6 +141,7 @@ function App() {
             </button>
           </div>
 
+          {/* Messages display section */}
           <div className="messages-container">
             {messages.map(msg => (
               <div key={msg.id} className="message flex">
@@ -136,6 +153,7 @@ function App() {
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Message input form */}
           <form onSubmit={sendMessage} className="message-form flex">
             <input
               type="text"

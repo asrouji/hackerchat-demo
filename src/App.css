@@ -1,3 +1,4 @@
+/* Root container styles */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,17 +6,20 @@
   text-align: center;
 }
 
+/* Main app container */
 .app-container {
   max-width: 600px;
   margin: 0 auto;
 }
 
+/* Utility class for flex layouts */
 .flex {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+/* Chat messages container with scrolling */
 .messages-container {
   height: 300px;
   overflow-y: auto;
@@ -26,15 +30,18 @@
   gap: 10px;
 }
 
+/* User avatar styling */
 img {
   width: 30px;
-  border-radius: 50%;
+  border-radius: 50%;  /* Makes images circular */
 }
 
+/* Message input field */
 input {
-  flex: 1;
+  flex: 1;  /* Takes up remaining space in flex container */
 }
 
+/* Position the last button (sign out) to the right */
 button:last-child {
   margin-left: auto;
 }
