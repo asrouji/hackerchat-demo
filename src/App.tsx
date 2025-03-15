@@ -119,7 +119,7 @@ function App() {
           <div className="messages-container">
             {messages.map(msg => (
               <div key={msg.id} className="message">
-                <img src={msg.hacker.github_avatar_url} alt="Avatar" className="message-avatar" />
+                <img src={msg.hacker.github_avatar_url} alt="Avatar" className="avatar" />
                 <strong className="message-username">{msg.hacker.github_login}:</strong>
                 <span>{msg.content}</span>
               </div>
