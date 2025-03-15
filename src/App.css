@@ -26,14 +26,14 @@
   padding: 10px;
 }
 
-/* User avatar styling */
-img {
+/* Shared avatar styling */
+.avatar {
   width: 30px;
-  border-radius: 50%;  /* Makes images circular */
+  border-radius: 50%;
 }
 
 /* Message input field */
 input {
-  flex: 1;  /* Takes up remaining space in flex container */
+  flex: 1;
   height: 32px;
 }
