@@ -7,8 +7,9 @@ A real-time chat application demo built with Supabase + Vite + TypeScript for LM
 Follow these steps to set up your Supabase project:
 
 1. Create a new project on [Supabase](https://supabase.com/).
-2. Go to your [API Settings](https://supabase.com/dashboard/project/_/settings/api) to find your `URL` and `anon` key.
-3. Add the following to your `.env.local` file (you can rename `.env.example` if you haven't already):
+2. Go to your [URL Configuration](https://supabase.com/dashboard/project/_/auth/url-configuration) and set the Site URL to `http://localhost:5173`
+3. Go to your [API Settings](https://supabase.com/dashboard/project/_/settings/api) to find your `URL` and `anon` key.
+4. Add the following to your `.env.local` file (you can rename `.env.example` if you haven't already):
 
 ```bash
 VITE_SUPABASE_URL=YOUR_SUPABASE_URL
